@@ -4,6 +4,11 @@
   "version": "0.1",
   "description": "A Chrome Extension to easily display PR statistics",
   "author": "Donald Little <dmlittle94@gmail.com>",
+  "icons": {
+    "16": "./img/icon16.png",
+    "48": "./img/icon48.png",
+    "128": "./img/icon128.png"
+  },
   "content_scripts": [
     {
       "matches": ["https://github.com/*/*/pull/*"],
