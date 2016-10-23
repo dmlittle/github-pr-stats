@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Github PR Stats</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Github PR Stats</h1>
+
+  <form id="config" class="configuration">
+    <div class="option">
+      <span>Access Token</span>
+      <input id="github-access-token" type="text" placeholder="Access token">
+      <a href="https://github.com/settings/tokens/new" target="_blank">Get token</a>
+      <small> Please select <strong>repo</strong> in the checkbox options</small>
+    </div>
+    <div class="option">
+      <span>Query</span>
+      <input id="github-query" type="text" placeholder="is:pr user:dmlittle">
+    </div>
+    <input type="submit" value="Save changes">
+  </form>
+
+  <script src="options.js"></script>
+</body>
+</html>
