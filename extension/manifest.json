@@ -16,6 +16,7 @@
       "run_at": "document_end"
     }
   ],
+  "web_accessible_resources": [ "img/loading.svg" ],
   "options_page": "options/index.html",
   "permissions": ["storage"]
 }

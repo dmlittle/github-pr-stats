@@ -13,11 +13,20 @@ chrome.storage.sync.get(null, function (storage) {
 
 $(FORM_SELECTOR).find($('button')).click(function() {
   if (GITHUB_TOKEN && GITHUB_QUERY) {
-    $.get('https://api.github.com/search/issues?access_token=' + GITHUB_TOKEN + '&q=' + GITHUB_QUERY).done(function(data) {
-      var stats = countAsignees(data.items);
 
-      $(FORM_SELECTOR).find($(USER_SELECTOR)).each(function() {
-        addUserDetails(this, stats);
+    var userElements = $(FORM_SELECTOR).find($(USER_SELECTOR));
+
+    userElements.each(function () {
+      addLoadingIcon(this);
+    })
+    .promise()
+    .done(function () {
+      $.get('https://api.github.com/search/issues?access_token=' + GITHUB_TOKEN + '&q=' + GITHUB_QUERY).done(function(data) {
+        var stats = countAsignees(data.items);
+
+        userElements.each(function() {
+          addUserDetails(this, stats);
+        });
       });
     });
   }
@@ -35,6 +44,12 @@ function countAsignees (issues) {
 
     return stats;
   }, {});
+}
+
+function addLoadingIcon (element) {
+  $(element).find($('span.description')).html(
+    $('<div>').css('background', 'url(' + chrome.extension.getURL('./img/loading.svg') + ') center').css('display', 'inline-block').css('width', '14px').css('height', '14px')
+  );
 }
 
 function addUserDetails (element, stats) {
