@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Github PR Statistics",
-  "version": "0.1",
+  "version": "0.2",
   "description": "A Chrome Extension to easily display PR statistics",
   "author": "Donald Little <dmlittle94@gmail.com>",
   "icons": {
