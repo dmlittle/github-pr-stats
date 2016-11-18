@@ -11,7 +11,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://github.com/*/*/pull/*"],
+      "matches": ["https://github.com/*/*/pull/*", "https://github.com/*/*/compare/*?expand=1"],
       "js": ["js/jquery-1.12.4.min.js", "index.js"],
       "run_at": "document_end"
     }
