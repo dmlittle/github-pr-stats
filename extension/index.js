@@ -3,7 +3,7 @@
 var GITHUB_TOKEN;
 var GITHUB_QUERY;
 
-var FORM_SELECTOR = 'form[action$="assignees"]';
+var FORM_SELECTOR = 'div.sidebar-assignee';
 var USER_SELECTOR = 'div [role="menuitem"]';
 
 chrome.storage.sync.get(null, function (storage) {
@@ -11,7 +11,7 @@ chrome.storage.sync.get(null, function (storage) {
   GITHUB_QUERY = storage.githubQuery;
 });
 
-$(FORM_SELECTOR).find($('button')).click(function() {
+$(document).on('click', '.sidebar-assignee', function() {
   if (GITHUB_TOKEN && GITHUB_QUERY) {
 
     var userElements = $(FORM_SELECTOR).find($(USER_SELECTOR));
@@ -31,6 +31,7 @@ $(FORM_SELECTOR).find($('button')).click(function() {
     });
   }
 });
+
 
 function countAsignees (issues) {
   return issues.reduce(function (stats, issue) {
