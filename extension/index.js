@@ -3,15 +3,16 @@
 var GITHUB_TOKEN;
 var GITHUB_QUERY;
 
-var FORM_SELECTOR = 'div.sidebar-assignee';
-var USER_SELECTOR = 'div [role="menuitem"]';
+var FORM_SELECTOR          = 'div.sidebar-assignee';
+var ASSIGN_BUTTON_SELECTOR = FORM_SELECTOR + ' button.discussion-sidebar-toggle';
+var USER_SELECTOR          = 'div [role="menuitem"]';
 
 chrome.storage.sync.get(null, function (storage) {
   GITHUB_TOKEN = storage.githubAccessToken;
   GITHUB_QUERY = storage.githubQuery;
 });
 
-$(document).on('click', '.sidebar-assignee', function() {
+$(document).on('click', ASSIGN_BUTTON_SELECTOR, function() {
   if (GITHUB_TOKEN && GITHUB_QUERY) {
 
     var userElements = $(FORM_SELECTOR).find($(USER_SELECTOR));
@@ -54,7 +55,17 @@ function addLoadingIcon (element) {
 }
 
 function addUserDetails (element, stats) {
-  var userId = $(element).find('input').val();
+  var el = $(element);
+  var userId = el.find('input').val();
 
-  $(element).find($('span.description')).html(' - ' + (stats[userId] || 0));
+  el.data('pr_count', stats[userId] || 0);
+  el.click(handlePRToggle);
+  el.on('updatePRCount', function () { el.find($('span.description')).html(' - ' + el.data('pr_count')); });
+  el.trigger('updatePRCount');
+}
+
+function handlePRToggle () {
+  var el = $(this);
+  el.data('pr_count', el.data('pr_count') + (!el.hasClass('selected') ? 1 : -1));
+  el.trigger('updatePRCount');
 }
